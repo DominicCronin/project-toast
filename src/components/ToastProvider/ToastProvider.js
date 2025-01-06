@@ -10,11 +10,13 @@ function ToastProvider({children}) {
     setToasts(nextToasts);
   }
 
-  const removeToast = (key)=> {
-    setToasts(toasts.filter((toast)=>toast.key !== key))
+  // TODO - one bright sunshiny day fiddle around with apply and arguments etc to make a function 
+  // that's semantically the opposite of filter, so that it isn't weird when you call removeToasts
+  const removeToasts = (filter)=> {
+    setToasts(toasts.filter(filter))
   }
-  
-  return <ToastContext.Provider value={{toasts, addToast, removeToast}}>
+ 
+  return <ToastContext.Provider value={{toasts, addToast, removeToasts}}>
     {children}
   </ToastContext.Provider>;
 }

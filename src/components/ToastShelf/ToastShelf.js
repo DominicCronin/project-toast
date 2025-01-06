@@ -4,14 +4,34 @@ import styles from './ToastShelf.module.css';
 import { ToastContext } from '../App';
 
 function ToastShelf() {
-  const {toasts, removeToast} = React.useContext(ToastContext);
+  const {toasts, removeToasts} = React.useContext(ToastContext);
+
+  React.useEffect(()=> {
+    function handleKeyDown(event) {
+      if (event.code === 'Escape') {
+        removeToasts(()=> false)
+      }
+    }
+  
+    window.addEventListener('keydown', handleKeyDown);
+  
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+
+  },[])
+
   return (
     <ol className={styles.wrapper}>
       {
         toasts.map(toast=> {
           return (
-            <li key={toast.key} className={styles.toastWrapper}>
-              <Toast message={toast.message} variant={toast.variant} removeToast={()=>removeToast(toast.key)}/> 
+            <li 
+              key={toast.key} 
+              className={styles.toastWrapper}>
+              <Toast message={toast.message} 
+                variant={toast.variant} 
+                removeToast={()=>removeToasts((item)=>item.key !== toast.key)}/> 
             </li>    
           )
         })
