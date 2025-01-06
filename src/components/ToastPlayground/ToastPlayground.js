@@ -21,7 +21,7 @@ function ToastPlayground() {
         <h1>Toast Playground</h1>
       </header>
 
-      {toastPopped && <Toast message={message} variant={selectedVariant}/> }
+      {toastPopped && <Toast message={message} variant={selectedVariant} setToastPopped={setToastPopped}/> }
 
       <div className={styles.controlsWrapper}>
         <div className={styles.row}>

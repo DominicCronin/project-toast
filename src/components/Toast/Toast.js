@@ -18,10 +18,14 @@ const ICONS_BY_VARIANT = {
   error: AlertOctagon,
 };
 
-function Toast({message, variant}) {
+function Toast({message, variant, setToastPopped}) {
   const IconForVariant = ICONS_BY_VARIANT[variant];
   return (
-    <div className={`${styles.toast} ${styles[variant]}`}>
+    <form className={`${styles.toast} ${styles[variant]}`}
+          onSubmit={()=>{
+            console.log("de-popping");
+            setToastPopped(false);
+          }}>
       <div className={styles.iconContainer}>
         <IconForVariant size={24}/>
       </div>
@@ -32,7 +36,7 @@ function Toast({message, variant}) {
         <X size={24} />
         <VisuallyHidden>Dismiss message</VisuallyHidden>
       </button>
-    </div>
+    </form>
   );
 }
 
