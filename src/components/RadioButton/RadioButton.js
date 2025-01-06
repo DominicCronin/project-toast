@@ -1,6 +1,6 @@
 import React from 'react';
 
-function RadioButton({name, value, setSelectedValue}) {
+function RadioButton({name, value, selectedValue, setSelectedValue}) {
   return (
     <label htmlFor={`${name}-${value}`}>
     <input
@@ -8,6 +8,7 @@ function RadioButton({name, value, setSelectedValue}) {
       type="radio"
       name={name}
       value={value}
+      checked={value === selectedValue || null}
       onChange={()=> {
         console.log("good");
         setSelectedValue(value)

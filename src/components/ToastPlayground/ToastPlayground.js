@@ -11,7 +11,8 @@ const VARIANT_OPTIONS = ['notice', 'warning', 'success', 'error'];
 
 
 function ToastPlayground() {
-  const [selectedVariant, setSelectedVariant] = React.useState(VARIANT_OPTIONS[0])
+  const defaultVariant = VARIANT_OPTIONS[0];
+  const [selectedVariant, setSelectedVariant] = React.useState(defaultVariant)
   const [message, setMessage] = React.useState('');
   const [toasts, setToasts] = React.useState([]);
 
@@ -41,8 +42,8 @@ function ToastPlayground() {
             <textarea 
               id="message" 
               className={styles.messageInput}
+              value={message}              
               onChange={(event)=> {setMessage(event.currentTarget.value)}}>
-              {message}
             </textarea>
           </div>
         </div>
@@ -54,7 +55,7 @@ function ToastPlayground() {
           >
             {VARIANT_OPTIONS.map(option=> <RadioButton 
                                             key={option} 
-                                            selectedValue={selectedVariant} 
+                                            selectedValue={selectedVariant}
                                             setSelectedValue={setSelectedVariant} 
                                             name="variant" value={option}/>) }
           </div>
@@ -69,6 +70,8 @@ function ToastPlayground() {
                 event.preventDefault()
                 const nextToasts = [...toasts, {"message": message, "variant": selectedVariant, "key": Math.random()}];
                 setToasts(nextToasts);
+                setMessage('');
+                setSelectedVariant(defaultVariant);
               }
               }>
             <Button>
